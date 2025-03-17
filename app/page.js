@@ -32,7 +32,6 @@ export default function Home() {
       <h1>hello next.js!</h1>
      <Button>click me!</Button>
      <UserButton/>
-  
     </div>
-     );
+     )
 }
