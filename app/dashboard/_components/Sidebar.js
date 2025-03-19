@@ -3,14 +3,21 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Layout, Shield } from 'lucide-react'
 import { Progress } from "@/components/ui/progress"
+import UploadPdf from './UploadPdf'
 const Sidebar = () => {
   return (
     <div className='shadow-md h-screen p-7'>
         <Image src ={'/logo.svg'} alt = 'logo' width ={150} height = {150}/>
 
+        <UploadPdf>
         <div className='mt-10'>
             <Button className="w-full"> + Upload PDF</Button>
         </div>
+
+        </UploadPdf>
+       
+
+
 
         <div className='flex gap-2 items-center p-5 mt-5 hover:bg-slate-100 rounded-lg cursor-pointer'>
             <Layout/>
