@@ -20,7 +20,7 @@ const DashboardLayout = ({children}) => {
             
         </div>
     </div>
-  )
+  );
 }
 
 export default DashboardLayout
