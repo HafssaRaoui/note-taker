@@ -1,8 +1,14 @@
 import { NextResponse } from "next/server";
 import { WebPDFLoader } from "@langchain/community/document_loaders/web/pdf";
 import {RecursiveCharacterTextSplitter} from 'langchain/text_splitter'
-const pdfUrl = "https://youthful-eagle-164.convex.cloud/api/storage/bd00d951-446c-4dfa-8f9f-daa7e7be59df"
+//const pdfUrl = "https://youthful-eagle-164.convex.cloud/api/storage/bd00d951-446c-4dfa-8f9f-daa7e7be59df"
 export async function GET(req) {
+
+    const reqUrl = req.url;
+    const {searchParams} = new URL(reqUrl)
+    const pdfUrl = searchParams.get('pdfUrl')
+    console.log(pdfUrl)
+
 
     //1- Load the pdf file
     const response = await fetch(pdfUrl)
