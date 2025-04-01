@@ -1,8 +1,32 @@
-import Strike from '@tiptap/extension-strike'
-import { AlignCenter, AlignJustify, AlignLeft, AlignRight, Bold, Code, Code2Icon, Heading1, Heading1Icon, Heading2, Heading3, Highlighter, Italic, List, Strikethrough, Underline } from 'lucide-react'
+'use client'
+import { api } from '@/convex/_generated/api'
+import { useAction } from 'convex/react'
+import { AlignCenter, AlignJustify, AlignLeft, AlignRight, Bold, Code, Code2Icon, Heading1,  Heading2, Heading3, Highlighter, Italic,  Sparkles, Strikethrough, Underline } from 'lucide-react'
+import { useParams } from 'next/navigation'
 import React from 'react'
 
 function EditorExtensions({ editor }) {
+
+    const {fileId} = useParams()
+    const aiSearch = useAction(api.myActions.search)
+
+    const onAiClick = async() => {
+       
+        const selectedText = editor.state.doc.textBetween(
+            editor.state.selection.from ,
+            editor.state.selection.to,
+            ''
+        )
+
+        const result = await aiSearch({
+            fileId : fileId,
+            query : selectedText            
+        })
+
+        console.log(selectedText)
+        console.log('UNFORMATTED',result)
+    }
+
     return editor && (
         <div className='p-5 '>
 
@@ -102,6 +126,16 @@ function EditorExtensions({ editor }) {
                     >
                         <AlignJustify />
                     </button>
+
+                    <button
+                        onClick={() =>onAiClick()}
+                        className= {'hover:text-blue-500'}
+                    >
+                        <Sparkles/>
+                    </button>
+
+
+                    
 
 
                 </div>
