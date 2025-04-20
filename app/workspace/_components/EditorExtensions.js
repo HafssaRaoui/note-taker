@@ -8,25 +8,39 @@ import React from 'react'
 function EditorExtensions({ editor }) {
 
     const {fileId} = useParams()
-    const aiSearch = useAction(api.myActions.search)
+    const SearchAI = useAction(api.myActions.search)
 
-    const onAiClick = async() => {
-       
+    const onAiClick = async () => {
         const selectedText = editor.state.doc.textBetween(
-            editor.state.selection.from ,
+            editor.state.selection.from,
             editor.state.selection.to,
             ''
-        )
+        );
+    
+        console.log('Selected Text:', selectedText);  // Ensure text selection is correct
+        console.log('FileId:', fileId);  // Ensure fileId is correct
+    
+        const result = await SearchAI({
+            query: selectedText,
+            fileId: fileId,
+        });
 
-        const result = await aiSearch({
-            fileId : fileId,
-            query : selectedText            
-        })
+        const UnformmattedAns = JSON.parse(result)
+        let AllUnformattedAns = ''
+        UnformmattedAns&&UnformmattedAns.forEach(item => {
+            AllUnformattedAns += AllUnformattedAns +item.pageContent
+            
+        });
 
-        console.log(selectedText)
-        console.log('UNFORMATTED',result)
-    }
+        const PROMPT = "For question :"+selectedText+" and with the given content as AllUnformattedAns,"
+        + " please give appropriate AllUnformattedAns in HTML format. The AllUnformattedAns content is: "+ AllUnformattedAns;
 
+
+        console.log('Unformatted AllUnformattedAns', result);  // Log the result
+
+    
+    };
+    
     return editor && (
         <div className='p-5 '>
 
