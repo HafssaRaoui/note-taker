@@ -1,4 +1,5 @@
 'use client'
+import { chatSession } from '@/configs/AIModel'
 import { api } from '@/convex/_generated/api'
 import { useAction } from 'convex/react'
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight, Bold, Code, Code2Icon, Heading1,  Heading2, Heading3, Highlighter, Italic,  Sparkles, Strikethrough, Underline } from 'lucide-react'
@@ -36,7 +37,16 @@ function EditorExtensions({ editor }) {
         + " please give appropriate AllUnformattedAns in HTML format. The AllUnformattedAns content is: "+ AllUnformattedAns;
 
 
-        console.log('Unformatted AllUnformattedAns', result);  // Log the result
+
+        const AiModelResult = await chatSession.sendMessage(PROMPT)
+
+        console.log(AiModelResult.response.text())
+
+        const finalAnswer = AiModelResult.response.text().replace('```','').replace('html','').replace('```','')
+        const AllText = editor.getHTML()
+        editor.commands.setContent(AllText + '<p> <strong> Answer: </strong>'+finalAnswer+' </p>')
+
+        //console.log('Unformatted AllUnformattedAns', result);  // Log the result
 
     
     };
