@@ -8,6 +8,8 @@ import {useQuery } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import TextEditor from '../_components/TextEditor'
 
+
+
 const Workspace = () => {
 
     const {fileId} = useParams()
@@ -17,6 +19,10 @@ const Workspace = () => {
         console.log(fileInfo)
 
     },[fileInfo])
+
+
+
+
     
   return (
     <div>
