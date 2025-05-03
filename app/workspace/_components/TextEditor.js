@@ -45,6 +45,7 @@ const TextEditor = ({fileId}) => {
             attributes:{
                 class:'focus:outline-none h-screen p-5'
             }
+           
         }
       })
     
