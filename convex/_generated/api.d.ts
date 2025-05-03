@@ -15,6 +15,7 @@ import type {
 } from "convex/server";
 import type * as langchain_db from "../langchain/db.js";
 import type * as myActions from "../myActions.js";
+import type * as notes from "../notes.js";
 import type * as pdfStorage from "../pdfStorage.js";
 import type * as user from "../user.js";
 
@@ -29,6 +30,7 @@ import type * as user from "../user.js";
 declare const fullApi: ApiFromModules<{
   "langchain/db": typeof langchain_db;
   myActions: typeof myActions;
+  notes: typeof notes;
   pdfStorage: typeof pdfStorage;
   user: typeof user;
 }>;

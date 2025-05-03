@@ -20,12 +20,12 @@ const Workspace = () => {
     
   return (
     <div>
-        <WorkspaceHeader/>
+        <WorkspaceHeader fileName = {fileInfo?.filename}/>
 
         <div className='grid grid-cols-2 gap-5'>
             <div >
                 {/* text editor */}
-                <TextEditor/>
+                <TextEditor fileId={fileId}/>
             </div>
             <div>
                 {/* pdf viewer */}

@@ -1,7 +1,7 @@
 import Placeholder from '@tiptap/extension-placeholder'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import React from 'react'
+import React, { useEffect } from 'react'
 import EditorExtensions from './EditorExtensions'
 import Highlight from '@tiptap/extension-highlight'
 import Underline from '@tiptap/extension-underline'
@@ -11,8 +11,22 @@ import TextAlign from '@tiptap/extension-text-align'
 import BulletList from '@tiptap/extension-bullet-list'
 import ListItem from '@tiptap/extension-list-item'
 import OrderedList from '@tiptap/extension-ordered-list'
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 
-const TextEditor = () => {
+const TextEditor = ({fileId}) => {
+
+    const notes = useQuery(api.notes.getNotes,{
+      fileId :fileId
+    })
+    console.log(notes)
+
+    useEffect(()=> {
+      editor &&editor.commands.setContent(notes)
+
+    }
+      ,[notes])
+   
 
     const editor = useEditor({
         extensions: [StarterKit,Placeholder.configure({
@@ -38,7 +52,7 @@ const TextEditor = () => {
     <div>
 
         <EditorExtensions editor={editor}/>
-        <div>
+        <div className='overflow-scroll h-[88vh]'>
         <EditorContent editor={editor} />
         </div>
     </div>
